@@ -39,4 +39,10 @@ public class Match {
     public void increaseTeam2Score() {
         this.team2Score++;
     }
+
+    public boolean isSameMatch(String team1Name, String team2Name) {
+        return (team1.name().equals(team1Name) && team2.name().equals(team2Name))
+                || (team1.name().equals(team2Name) && team2.name().equals(team1Name));
+
+    }
 }

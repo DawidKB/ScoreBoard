@@ -9,8 +9,8 @@ import java.time.ZoneId;
 
 import static org.example.models.Match.NULL_TEAM;
 import static org.example.models.Match.SAME_TEAM;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class MatchTest {
     private Match match;
@@ -62,5 +62,22 @@ class MatchTest {
 
         assertEquals(0, match.getTeam1Score());
         assertEquals(1, match.getTeam2Score());
+    }
+
+    @Test
+    void shouldReturnTrueIfSameMatch() {
+        match = new Match(TEAM1_NAME, TEAM2_NAME, OffsetDateTime.now(CLOCK));
+
+        assertTrue(match.isSameMatch(TEAM1_NAME, TEAM2_NAME));
+        assertTrue(match.isSameMatch(TEAM2_NAME, TEAM1_NAME));
+    }
+
+    @Test
+    void shouldReturnFalseIfDifferentMatch() {
+        final var dummyName = "dummyName";
+        match = new Match(TEAM1_NAME, TEAM2_NAME, OffsetDateTime.now(CLOCK));
+
+        assertFalse(match.isSameMatch(TEAM1_NAME, dummyName));
+        assertFalse(match.isSameMatch(dummyName, TEAM1_NAME));
     }
 }
