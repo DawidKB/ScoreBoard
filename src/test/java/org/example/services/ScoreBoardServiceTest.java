@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
-import static org.example.services.ScoreBoardService.MATCH_ALREADY_ON_THE_BOARD;
+import static org.example.services.ScoreBoardService.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardServiceTest {
@@ -40,7 +40,45 @@ class ScoreBoardServiceTest {
     @Test
     void shouldThrowExceptionWhenMatchAlreadyOnTheScoreBoard() {
         scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+
         var err = assertThrows(IllegalArgumentException.class, () -> scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now));
         assertEquals(MATCH_ALREADY_ON_THE_BOARD, err.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTryToUpdateScoreAndTeam1IsNull() {
+        var err = assertThrows(IllegalArgumentException.class, () -> scoreService.findOngoingMatchOnTheScoreBoard(null, TEAM2_NAME));
+        assertEquals(NULL_TEAM, err.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTryToUpdateScoreAndTeam2IsNull() {
+        var err = assertThrows(IllegalArgumentException.class, () -> scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, null));
+        assertEquals(NULL_TEAM, err.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTryToUpdateScoreAndMatchIsNotOnTheBoard() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+
+        var err = assertThrows(IllegalArgumentException.class, () -> scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM3_NAME));
+        assertEquals(MATCH_NOT_ON_THE_BOARD, err.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTryToUpdateScoreOfFinishedMatch() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now.minusMinutes(91));
+
+        var err = assertThrows(IllegalArgumentException.class, () -> scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME));
+        assertEquals(MATCH_NOT_ONGOING, err.getMessage());
+    }
+
+    @Test
+    void shouldFindOngoingMatchSuccessfully() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+
+        var match = scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME);
+
+        assertNotNull(match);
     }
 }

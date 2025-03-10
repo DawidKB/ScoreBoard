@@ -12,6 +12,9 @@ public class ScoreBoardService {
     private Clock clock;
 
     static final String MATCH_ALREADY_ON_THE_BOARD = "Match is already on the score board";
+    static final String MATCH_NOT_ON_THE_BOARD = "Match has to be on the score board";
+    static final String MATCH_NOT_ONGOING = "The match is not ongoing";
+    static final String NULL_TEAM = "team1Name and team2Name cannot be Null";
 
     public ScoreBoardService(Clock clock) {
         this.clock = clock;
@@ -25,5 +28,24 @@ public class ScoreBoardService {
             throw new IllegalArgumentException(MATCH_ALREADY_ON_THE_BOARD);
         }
         return this.matches.add(match);
+    }
+
+    protected Match findOngoingMatchOnTheScoreBoard(String team1Name, String team2Name) {
+        if (team1Name == null || team2Name == null) {
+            throw new IllegalArgumentException(NULL_TEAM);
+        }
+        for (var match : matches) {
+            if (match.isSameMatch(team1Name, team2Name)) {
+                validateIfOngoingMatch(match);
+                return match;
+            }
+        }
+        throw new IllegalArgumentException(MATCH_NOT_ON_THE_BOARD);
+    }
+
+    private void validateIfOngoingMatch(Match match) {
+        if (!(OffsetDateTime.now(clock).isBefore(match.getStartDateTime().plusMinutes(90)))) {
+            throw new IllegalArgumentException(MATCH_NOT_ONGOING);
+        }
     }
 }
