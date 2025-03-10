@@ -1,17 +1,21 @@
 package org.example.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.time.OffsetDateTime;
 
 @Getter
+@EqualsAndHashCode
 public class Match {
     private final Team team1;
     private final Team team2;
+    @EqualsAndHashCode.Exclude
     private final OffsetDateTime startDateTime;
+    @EqualsAndHashCode.Exclude
     private int team1Score;
+    @EqualsAndHashCode.Exclude
     private int team2Score;
-
     static final String NULL_TEAM = "team1Name and team2Name cannot be Null";
     static final String SAME_TEAM = "team1 and team2 cannot be the same";
 
