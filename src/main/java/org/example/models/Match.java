@@ -1,7 +1,10 @@
 package org.example.models;
 
+import lombok.Getter;
+
 import java.time.OffsetDateTime;
 
+@Getter
 public class Match {
     private final Team team1;
     private final Team team2;
@@ -23,5 +26,13 @@ public class Match {
         this.startDateTime = startDateTime;
         this.team1Score = 0;
         this.team2Score = 0;
+    }
+
+    public void increaseTeam1Score() {
+        this.team1Score++;
+    }
+
+    public void increaseTeam2Score() {
+        this.team2Score++;
     }
 }

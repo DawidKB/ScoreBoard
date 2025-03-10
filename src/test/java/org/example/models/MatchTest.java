@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MatchTest {
+    private Match match;
     private static final Clock CLOCK = Clock.fixed(Instant.parse("1939-09-01T00:00:01.00Z"), ZoneId.of("UTC"));
     private static final String TEAM1_NAME = "team1 name";
     private static final String TEAM2_NAME = "team2 name";
@@ -41,5 +42,25 @@ class MatchTest {
     void shouldThrowExceptionWhenTeamsAreTheSame() {
         var err = assertThrows(IllegalArgumentException.class, () -> new Match(TEAM1_NAME, TEAM1_NAME, now));
         assertEquals(SAME_TEAM, err.getMessage());
+    }
+
+    @Test
+    void shouldIncrementTeam1Score() {
+        match = new Match(TEAM1_NAME, TEAM2_NAME, OffsetDateTime.now(CLOCK));
+
+        match.increaseTeam1Score();
+
+        assertEquals(1, match.getTeam1Score());
+        assertEquals(0, match.getTeam2Score());
+    }
+
+    @Test
+    void shouldIncrementTeam2Score() {
+        match = new Match(TEAM1_NAME, TEAM2_NAME, OffsetDateTime.now(CLOCK));
+
+        match.increaseTeam2Score();
+
+        assertEquals(0, match.getTeam1Score());
+        assertEquals(1, match.getTeam2Score());
     }
 }
