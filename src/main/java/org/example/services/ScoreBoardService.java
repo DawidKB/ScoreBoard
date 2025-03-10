@@ -30,6 +30,16 @@ public class ScoreBoardService {
         return this.matches.add(match);
     }
 
+    public void addGoalForTeam1(String team1Name, String team2Name) {
+        var match = findOngoingMatchOnTheScoreBoard(team1Name, team2Name);
+        match.increaseTeam1Score();
+    }
+
+    public void addGoalForTeam2(String team1Name, String team2Name) {
+        var match = findOngoingMatchOnTheScoreBoard(team1Name, team2Name);
+        match.increaseTeam2Score();
+    }
+
     protected Match findOngoingMatchOnTheScoreBoard(String team1Name, String team2Name) {
         if (team1Name == null || team2Name == null) {
             throw new IllegalArgumentException(NULL_TEAM);

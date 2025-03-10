@@ -81,4 +81,27 @@ class ScoreBoardServiceTest {
 
         assertNotNull(match);
     }
+
+    @Test
+    void shouldTeam1ScoreAGoalSuccessfullyWhenMatchIsOngoing() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+
+        scoreService.addGoalForTeam1(TEAM1_NAME, TEAM2_NAME);
+
+        var match = scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME);
+        assertEquals(1, match.getTeam1Score());
+        assertEquals(0, match.getTeam2Score());
+    }
+
+    @Test
+    void shouldTeam2ScoreAGoalSuccessfullyWhenMatchIsOngoing() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+
+        scoreService.addGoalForTeam2(TEAM1_NAME, TEAM2_NAME);
+
+        var match = scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME);
+        assertEquals(0, match.getTeam1Score());
+        assertEquals(1, match.getTeam2Score());
+
+    }
 }
