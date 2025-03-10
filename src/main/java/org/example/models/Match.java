@@ -45,4 +45,8 @@ public class Match {
                 || (team1.name().equals(team2Name) && team2.name().equals(team1Name));
 
     }
+
+    public String getScore() {
+        return getTeam1().name() + ": " + getTeam1Score() + " - " + getTeam2().name() + ": " + getTeam2Score();
+    }
 }

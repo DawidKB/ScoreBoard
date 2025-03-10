@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ScoreBoardService {
     private final List<Match> matches;
-    private Clock clock;
+    private final Clock clock;
 
     static final String MATCH_ALREADY_ON_THE_BOARD = "Match is already on the score board";
     static final String MATCH_NOT_ON_THE_BOARD = "Match has to be on the score board";
@@ -38,6 +38,14 @@ public class ScoreBoardService {
     public void addGoalForTeam2(String team1Name, String team2Name) {
         var match = findOngoingMatchOnTheScoreBoard(team1Name, team2Name);
         match.increaseTeam2Score();
+    }
+
+    public String getScoreBoard() {
+        StringBuilder sb = new StringBuilder("SCOREBOARD");
+        for (Match match : this.matches) {
+            sb.append("\n").append(match.getScore());
+        }
+        return sb.toString();
     }
 
     protected Match findOngoingMatchOnTheScoreBoard(String team1Name, String team2Name) {

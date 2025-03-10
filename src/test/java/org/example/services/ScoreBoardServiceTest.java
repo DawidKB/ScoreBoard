@@ -102,6 +102,15 @@ class ScoreBoardServiceTest {
         var match = scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME);
         assertEquals(0, match.getTeam1Score());
         assertEquals(1, match.getTeam2Score());
+    }
 
+    @Test
+    void shouldGetScoreboardSuccessfully() {
+        scoreService.addMatch(TEAM1_NAME, TEAM2_NAME, now);
+        var match = scoreService.findOngoingMatchOnTheScoreBoard(TEAM1_NAME, TEAM2_NAME);
+
+        var scoreBoard = scoreService.getScoreBoard();
+
+        assertTrue(scoreBoard.contains(match.getScore()));
     }
 }
