@@ -51,4 +51,14 @@ class GameTest {
         assertEquals(0, game.getAwayScore());
     }
 
+    @Test
+    void shouldUpdateScore() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        game.updateScore(2, 3);
+
+        assertEquals(2, game.getHomeScore());
+        assertEquals(3, game.getAwayScore());
+    }
+
 }

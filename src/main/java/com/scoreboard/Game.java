@@ -11,7 +11,7 @@ public class Game {
 
     private final GameId id;
     private final Instant startTime;
-    private final Score score;
+    private Score score;
 
     public Game(GameId id, Clock clock) {
         this.id = requireNonNull(id, "id must not be null");
@@ -37,6 +37,10 @@ public class Game {
 
     public int getAwayScore() {
         return score.away();
+    }
+
+    public void updateScore(int homeScore, int awayScore) {
+        this.score = new Score(homeScore, awayScore);
     }
 
     public record Score(int home, int away) {}
