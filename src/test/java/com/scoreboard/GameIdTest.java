@@ -43,4 +43,11 @@ class GameIdTest {
         assertEquals("Team name cannot be blank", ex.getMessage());
     }
 
+    @Test
+    void shouldNormalizeWhiteSpaceAndCase() {
+        GameId id = new GameId("  Real    Madrid", " MANCHESTER   CITY   ");
+
+        assertEquals("real madrid", id.homeTeam());
+        assertEquals("manchester city", id.awayTeam());
+    }
 }

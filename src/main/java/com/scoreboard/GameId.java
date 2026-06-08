@@ -1,5 +1,7 @@
 package com.scoreboard;
 
+import java.util.Locale;
+
 public record GameId(String homeTeam, String awayTeam) {
 
     public GameId {
@@ -19,7 +21,9 @@ public record GameId(String homeTeam, String awayTeam) {
             throw new IllegalArgumentException("Team name cannot be blank");
         }
 
-        return stripped;
+        return stripped
+                .replaceAll("\\s+", " ")
+                .toLowerCase(Locale.ROOT);
     }
 
 }
