@@ -50,4 +50,13 @@ class GameIdTest {
         assertEquals("real madrid", id.homeTeam());
         assertEquals("manchester city", id.awayTeam());
     }
+
+    @Test
+    void shouldBeEqualForSameTeams() {
+        GameId id1 = new GameId("Poland", "Brazil");
+        GameId id2 = new GameId("   POLAND  ", " BRAZIL  ");
+
+        assertEquals(id1, id2);
+        assertEquals(id1.hashCode(), id2.hashCode());
+    }
 }
