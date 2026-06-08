@@ -59,4 +59,11 @@ class GameIdTest {
         assertEquals(id1, id2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }
+
+    @Test
+    void shouldThrowWhenTeamsAreSameAfterNormalization() {
+        var ex = assertThrows(IllegalArgumentException.class,
+                () -> new GameId("Poland", " POLAND "));
+        assertEquals("Teams must be different", ex.getMessage());
+    }
 }
