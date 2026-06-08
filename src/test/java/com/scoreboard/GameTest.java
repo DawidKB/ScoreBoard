@@ -15,4 +15,10 @@ class GameTest {
         assertEquals(id, game.getId());
     }
 
+    @Test
+    void shouldThrowWhenIdNull() {
+        var ex = assertThrows(NullPointerException.class,
+                () -> new Game(null));
+        assertEquals("id must not be null", ex.getMessage());
+    }
 }
