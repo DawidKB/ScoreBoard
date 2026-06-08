@@ -43,4 +43,12 @@ class GameTest {
         assertEquals("clock must not be null", ex.getMessage());
     }
 
+    @Test
+    void shouldStartWithZeroScores() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        assertEquals(0, game.getHomeScore());
+        assertEquals(0, game.getAwayScore());
+    }
+
 }
