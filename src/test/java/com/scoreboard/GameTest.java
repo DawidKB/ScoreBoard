@@ -2,6 +2,10 @@ package com.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -20,5 +24,15 @@ class GameTest {
         var ex = assertThrows(NullPointerException.class,
                 () -> new Game(null));
         assertEquals("id must not be null", ex.getMessage());
+    }
+
+    @Test
+    void shouldSetStartTimeUsingClock() {
+        Instant fixedInstant = Instant.parse("2024-01-01T10:00:00Z");
+        Clock clock = Clock.fixed(fixedInstant, ZoneOffset.UTC);
+
+        Game game = new Game(new GameId("Poland", "Brazil"), clock);
+
+        assertEquals(fixedInstant, game.getStartTime());
     }
 }
