@@ -14,4 +14,14 @@ class GameIdTest {
         assertEquals("Brazil", id.awayTeam());
     }
 
+    @Test
+    void shouldThrowWhenAnyTeamIsNull() {
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class,
+                        () -> new GameId(null, "Brazil")),
+                () -> assertThrows(IllegalArgumentException.class,
+                        () -> new GameId("Poland", null))
+        );
+    }
+
 }
