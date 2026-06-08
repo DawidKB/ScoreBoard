@@ -12,7 +12,7 @@ public class Game {
 
     public Game(GameId id, Clock clock) {
         this.id = requireNonNull(id, "id must not be null");
-        this.startTime = clock.instant();
+        this.startTime = requireNonNull(clock, "clock must not be null").instant();
     }
 
     public Game(GameId id) {

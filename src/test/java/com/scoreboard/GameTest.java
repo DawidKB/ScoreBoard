@@ -35,4 +35,12 @@ class GameTest {
 
         assertEquals(fixedInstant, game.getStartTime());
     }
+
+    @Test
+    void shouldThrowWhenClockIsNull() {
+        var  ex = assertThrows(NullPointerException.class,
+                () -> new Game(new GameId("Poland", "Brazil"), null));
+        assertEquals("clock must not be null", ex.getMessage());
+    }
+
 }
