@@ -38,8 +38,7 @@ class GameIdTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  ", "\t", "\n"})
     void shouldThrowWhenAwayTeamIsBlank(String team) {
-        var ex = assertThrows(IllegalArgumentException.class,
-                            () -> new GameId("Poland", team));
+        var ex = assertThrows(IllegalArgumentException.class, () -> new GameId("Poland", team));
         assertEquals("Team name cannot be blank", ex.getMessage());
     }
 
