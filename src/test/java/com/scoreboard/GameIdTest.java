@@ -12,8 +12,8 @@ class GameIdTest {
     void shouldCreateGameId() {
         GameId id = new GameId("Poland", "Brazil");
 
-        assertEquals("Poland", id.homeTeam());
-        assertEquals("Brazil", id.awayTeam());
+        assertEquals("poland", id.homeTeam());
+        assertEquals("brazil", id.awayTeam());
     }
 
     @Test
@@ -66,4 +66,12 @@ class GameIdTest {
                 () -> new GameId("Poland", " POLAND "));
         assertEquals("Teams must be different", ex.getMessage());
     }
+
+    @Test
+    void shouldFormatToString() {
+        GameId id = new GameId("Poland", "Brazil");
+
+        assertEquals("poland vs brazil", id.toString());
+    }
+
 }

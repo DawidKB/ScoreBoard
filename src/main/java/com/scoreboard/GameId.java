@@ -29,4 +29,9 @@ public record GameId(String homeTeam, String awayTeam) {
                 .toLowerCase(Locale.ROOT);
     }
 
+    @Override
+    public String toString() {
+        return homeTeam + " vs " + awayTeam;
+    }
+
 }
