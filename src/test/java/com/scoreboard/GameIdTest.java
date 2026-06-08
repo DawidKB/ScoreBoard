@@ -1,6 +1,8 @@
 package com.scoreboard;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,13 +17,30 @@ class GameIdTest {
     }
 
     @Test
-    void shouldThrowWhenAnyTeamIsNull() {
-        assertAll(
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new GameId(null, "Brazil")),
-                () -> assertThrows(IllegalArgumentException.class,
-                        () -> new GameId("Poland", null))
-        );
+    void shouldThrowWhenHomeTeamIsNull() {
+        var ex = assertThrows(IllegalArgumentException.class, () -> new GameId(null, "Brazil"));
+        assertEquals("Team name cannot be null", ex.getMessage());
+    }
+
+    @Test
+    void shouldThrowWhenAwayTeamIsNull() {
+        var ex = assertThrows(IllegalArgumentException.class, () -> new GameId("Poland", null));
+        assertEquals("Team name cannot be null", ex.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "  ", "\t", "\n"})
+    void shouldThrowWhenHomeTeamIsBlank(String team) {
+        var ex = assertThrows(IllegalArgumentException.class, () -> new GameId(team, "Brazil"));
+        assertEquals("Team name cannot be blank", ex.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "  ", "\t", "\n"})
+    void shouldThrowWhenAwayTeamIsBlank(String team) {
+        var ex = assertThrows(IllegalArgumentException.class,
+                            () -> new GameId("Poland", team));
+        assertEquals("Team name cannot be blank", ex.getMessage());
     }
 
 }

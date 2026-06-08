@@ -4,16 +4,22 @@ public record GameId(String homeTeam, String awayTeam) {
 
     public GameId {
 
-        homeTeam = validate(homeTeam);
-        awayTeam = validate(awayTeam);
+        homeTeam = normalize(homeTeam);
+        awayTeam = normalize(awayTeam);
     }
 
-    private String validate(String team) {
+    private String normalize(String team) {
         if (team == null) {
             throw new IllegalArgumentException("Team name cannot be null");
         }
 
-        return team;
+        String stripped = team.strip();
+
+        if (stripped.isEmpty()) {
+            throw new IllegalArgumentException("Team name cannot be blank");
+        }
+
+        return stripped;
     }
 
 }
