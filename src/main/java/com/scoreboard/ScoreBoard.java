@@ -45,7 +45,13 @@ public class ScoreBoard {
     }
 
     private Game getExistingGame(GameId id) {
-        return activeGames.get(id);
+        Game game = activeGames.get(id);
+
+        if (game == null) {
+            throw new NoSuchElementException("Game not found: " + id);
+        }
+
+        return game;
     }
 
 }

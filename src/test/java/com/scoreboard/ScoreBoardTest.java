@@ -69,4 +69,13 @@ class ScoreBoardTest {
         assertEquals(2, game.getAwayScore());
     }
 
+    @Test
+    void shouldThrowWhenTryToUpdateGameScoreThatNotExists() {
+        ScoreBoard board = new ScoreBoard();
+
+        var ex = assertThrows(NoSuchElementException.class,
+                () -> board.updateScore("Poland", "Brazil", 0, 0));
+        assertTrue(ex.getMessage().contains("Game not found"));
+    }
+
 }
