@@ -57,4 +57,16 @@ class ScoreBoardTest {
         assertTrue(ex.getMessage().contains("Game not found"));
     }
 
+    @Test
+    void shouldUpdateScore() {
+        ScoreBoard board = new ScoreBoard();
+
+        board.startGame("Poland", "Brazil");
+        board.updateScore("Poland", "Brazil", 1, 2);
+
+        Game game = board.getSummary().getFirst();
+        assertEquals(1, game.getHomeScore());
+        assertEquals(2, game.getAwayScore());
+    }
+
 }

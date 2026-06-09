@@ -29,6 +29,13 @@ public class ScoreBoard {
         }
     }
 
+    public void updateScore(String homeTeam, String awayTeam,
+                            int homeScore, int awayScore) {
+        GameId id = toId(homeTeam, awayTeam);
+        Game game = getExistingGame(id);
+        game.updateScore(homeScore, awayScore);
+    }
+
     public List<Game> getSummary() {
         return new ArrayList<>(activeGames.values());
     }
@@ -36,4 +43,9 @@ public class ScoreBoard {
     private GameId toId(String home, String away) {
         return new GameId(home, away);
     }
+
+    private Game getExistingGame(GameId id) {
+        return activeGames.get(id);
+    }
+
 }
