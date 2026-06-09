@@ -11,7 +11,7 @@ public class Game {
 
     private final GameId id;
     private final Instant startTime;
-    private Score score;
+    private volatile Score score;
 
     public Game(GameId id, Clock clock) {
         this.id = requireNonNull(id, "id must not be null");
