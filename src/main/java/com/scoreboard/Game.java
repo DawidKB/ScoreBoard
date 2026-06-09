@@ -31,6 +31,14 @@ public class Game {
         return startTime;
     }
 
+    public String getHomeTeam() {
+        return id.homeTeam();
+    }
+
+    public String getAwayTeam() {
+        return id.awayTeam();
+    }
+
     public int getHomeScore() {
         return score.home();
     }

@@ -80,4 +80,12 @@ class GameTest {
         assertEquals(5, game.getTotalScore());
     }
 
+    @Test
+    void shouldReturnTeamsFromId() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        assertEquals("poland", game.getHomeTeam());
+        assertEquals("brazil", game.getAwayTeam());
+    }
+
 }
