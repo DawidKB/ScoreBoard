@@ -107,4 +107,11 @@ class GameTest {
         assertEquals("poland 2 - brazil 1", game.toString());
     }
 
+    @Test
+    void shouldUseSystemClockByDefault() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        assertNotNull(game.getStartTime());
+    }
+
 }
