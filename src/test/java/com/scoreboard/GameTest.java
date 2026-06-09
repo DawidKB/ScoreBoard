@@ -61,4 +61,23 @@ class GameTest {
         assertEquals(3, game.getAwayScore());
     }
 
+    @Test
+    void shouldThrowWhenNegativeScore() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        Exception ex = assertThrows(IllegalArgumentException.class,
+                () -> game.updateScore(-1, 0));
+
+        assertEquals("Score cannot be negative", ex.getMessage());
+    }
+
+    @Test
+    void shouldReturnTotalScore() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+
+        game.updateScore(2, 3);
+
+        assertEquals(5, game.getTotalScore());
+    }
+
 }

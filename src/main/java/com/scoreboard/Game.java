@@ -43,6 +43,22 @@ public class Game {
         this.score = new Score(homeScore, awayScore);
     }
 
-    public record Score(int home, int away) {}
+    public int getTotalScore() {
+        return score.total();
+    }
+
+    public record Score(int home, int away) {
+
+        public Score {
+            if (home < 0 || away < 0) {
+                throw new IllegalArgumentException("Score cannot be negative");
+            }
+        }
+
+        public int total() {
+            return home + away;
+        }
+
+    }
 
 }
