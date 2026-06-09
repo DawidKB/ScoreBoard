@@ -23,4 +23,16 @@ class ScoreBoardTest {
 
         assertEquals(1, board.getSummary().size());
     }
+
+    @Test
+    void shouldNotAllowDuplicateGames() {
+        ScoreBoard board = new ScoreBoard();
+
+        var game = board.startGame("Poland", "Brazil");
+
+        var ex = assertThrows(IllegalStateException.class,
+                () -> board.startGame("Poland", "Brazil"));
+        assertEquals("Game already exists: " + game.getId(), ex.getMessage());
+    }
+
 }

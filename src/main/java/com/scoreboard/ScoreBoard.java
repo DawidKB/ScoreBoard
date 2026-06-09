@@ -13,7 +13,9 @@ public class ScoreBoard {
         GameId id = toId(homeTeam, awayTeam);
         Game game = new Game(id);
 
-        activeGames.putIfAbsent(id, game);
+        if (activeGames.putIfAbsent(id, game) != null) {
+            throw new IllegalStateException("Game already exists: " + id);
+        }
 
         return game;
     }
