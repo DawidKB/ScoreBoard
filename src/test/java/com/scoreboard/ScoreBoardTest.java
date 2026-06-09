@@ -78,4 +78,16 @@ class ScoreBoardTest {
         assertTrue(ex.getMessage().contains("Game not found"));
     }
 
+    @Test
+    void shouldOrderByTotalScoreDesc() {
+        ScoreBoard board = new ScoreBoard();
+
+        board.startGame("Poland", "Brazil");
+        board.startGame("Spain", "Brazil");
+        board.updateScore("Poland", "Brazil", 0, 5); // total 5
+        board.updateScore("Spain", "Brazil", 1, 1);  // total 2
+
+        assertEquals(5, board.getSummary().getFirst().getTotalScore());
+    }
+
 }

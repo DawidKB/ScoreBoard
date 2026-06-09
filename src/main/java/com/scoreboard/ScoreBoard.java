@@ -1,12 +1,12 @@
 package com.scoreboard;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ScoreBoard {
+
+    private static final Comparator<Game> SUMMARY_COMPARATOR =
+            Comparator.comparingInt(Game::getTotalScore).reversed();
 
     private final Map<GameId, Game> activeGames = new ConcurrentHashMap<>();
 
@@ -37,7 +37,9 @@ public class ScoreBoard {
     }
 
     public List<Game> getSummary() {
-        return new ArrayList<>(activeGames.values());
+        return activeGames.values().stream()
+                .sorted(SUMMARY_COMPARATOR)
+                .toList();
     }
 
     private GameId toId(String home, String away) {
