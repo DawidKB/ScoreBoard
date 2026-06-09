@@ -35,4 +35,15 @@ class ScoreBoardTest {
         assertEquals("Game already exists: " + game.getId(), ex.getMessage());
     }
 
+    @Test
+    void shouldRemoveFinishedGame() {
+        ScoreBoard board = new ScoreBoard();
+
+        board.startGame("Poland", "Brazil");
+
+        board.finishGame("Poland", "Brazil");
+
+        assertTrue(board.getSummary().isEmpty());
+    }
+
 }

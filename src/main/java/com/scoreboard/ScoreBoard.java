@@ -3,6 +3,7 @@ package com.scoreboard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ScoreBoard {
@@ -18,6 +19,12 @@ public class ScoreBoard {
         }
 
         return game;
+    }
+
+    public void finishGame(String homeTeam, String awayTeam) {
+        GameId id = toId(homeTeam, awayTeam);
+
+        activeGames.remove(id);
     }
 
     public List<Game> getSummary() {
