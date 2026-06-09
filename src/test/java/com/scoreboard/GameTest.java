@@ -99,4 +99,12 @@ class GameTest {
         assertEquals(g1.hashCode(), g2.hashCode());
     }
 
+    @Test
+    void shouldFormatToString() {
+        Game game = new Game(new GameId("Poland", "Brazil"));
+        game.updateScore(2, 1);
+
+        assertEquals("poland 2 - brazil 1", game.toString());
+    }
+
 }

@@ -67,6 +67,14 @@ public class Game {
         return id.hashCode();
     }
 
+    @Override
+    public String toString() {
+        Score s = score;
+        return id.homeTeam() + " " + s.home()
+                + " - "
+                + id.awayTeam() + " " + s.away();
+    }
+
     public record Score(int home, int away) {
 
         public Score {
