@@ -24,7 +24,9 @@ public class ScoreBoard {
     public void finishGame(String homeTeam, String awayTeam) {
         GameId id = toId(homeTeam, awayTeam);
 
-        activeGames.remove(id);
+        if (activeGames.remove(id) == null) {
+            throw new NoSuchElementException("Game not found: " + id);
+        }
     }
 
     public List<Game> getSummary() {

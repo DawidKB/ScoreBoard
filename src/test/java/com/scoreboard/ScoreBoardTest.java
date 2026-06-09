@@ -2,6 +2,8 @@ package com.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
@@ -44,6 +46,15 @@ class ScoreBoardTest {
         board.finishGame("Poland", "Brazil");
 
         assertTrue(board.getSummary().isEmpty());
+    }
+
+    @Test
+    void shouldThrowWhenTryToRemoveGameThatNotExists() {
+        ScoreBoard board = new ScoreBoard();
+
+        var ex = assertThrows(NoSuchElementException.class,
+                () -> board.finishGame("Poland", "Brazil"));
+        assertTrue(ex.getMessage().contains("Game not found"));
     }
 
 }
