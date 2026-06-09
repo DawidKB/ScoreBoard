@@ -88,4 +88,15 @@ class GameTest {
         assertEquals("brazil", game.getAwayTeam());
     }
 
+    @Test
+    void shouldBeEqualIfSameGameId() {
+        GameId id = new GameId("Poland", "Brazil");
+
+        Game g1 = new Game(id);
+        Game g2 = new Game(id);
+
+        assertEquals(g1, g2);
+        assertEquals(g1.hashCode(), g2.hashCode());
+    }
+
 }

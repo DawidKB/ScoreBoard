@@ -55,6 +55,18 @@ public class Game {
         return score.total();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game game)) return false;
+        return id.equals(game.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
     public record Score(int home, int away) {
 
         public Score {
