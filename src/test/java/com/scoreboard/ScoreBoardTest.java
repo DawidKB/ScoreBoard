@@ -14,4 +14,13 @@ class ScoreBoardTest {
 
         assertNotNull(game);
     }
+
+    @Test
+    void shouldKeepStartedGameInSummary() {
+        ScoreBoard board = new ScoreBoard();
+
+        board.startGame("Poland", "Brazil");
+
+        assertEquals(1, board.getSummary().size());
+    }
 }
