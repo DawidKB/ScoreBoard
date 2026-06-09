@@ -90,4 +90,18 @@ class ScoreBoardTest {
         assertEquals(5, board.getSummary().getFirst().getTotalScore());
     }
 
+    @Test
+    void shouldOrderByMostRecentWhenScoresEqual() throws InterruptedException {
+        ScoreBoard board = new ScoreBoard();
+
+        board.startGame("Poland", "Brazil");
+        Thread.sleep(1);
+        board.startGame("Spain", "Brazil");
+
+        board.updateScore("Poland", "Brazil", 2, 0);
+        board.updateScore("Spain", "Brazil", 1, 1);
+
+        assertEquals("spain", board.getSummary().getFirst().getHomeTeam());
+    }
+
 }

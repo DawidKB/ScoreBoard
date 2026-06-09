@@ -6,7 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ScoreBoard {
 
     private static final Comparator<Game> SUMMARY_COMPARATOR =
-            Comparator.comparingInt(Game::getTotalScore).reversed();
+            Comparator.comparingInt(Game::getTotalScore).reversed()
+                    .thenComparing(Game::getStartTime, Comparator.reverseOrder());
 
     private final Map<GameId, Game> activeGames = new ConcurrentHashMap<>();
 
